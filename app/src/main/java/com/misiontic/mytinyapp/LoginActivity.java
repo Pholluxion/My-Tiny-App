@@ -12,15 +12,14 @@ import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView btnGoToRegistro;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_MyTinyApp_Dark);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.btnGoToRegistro = findViewById(R.id.btnGoToRegistro);
-        this.btnGoToRegistro.setOnClickListener(new View.OnClickListener() {
+        TextView btnGoToRegister = findViewById(R.id.btnGoToRegistro);
+        btnGoToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToRegister();
