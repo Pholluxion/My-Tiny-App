@@ -9,15 +9,22 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private EditText email,pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_MyTinyApp_Dark);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        this.email = findViewById(R.id.txtEmailLogin);
+        this.pass  = findViewById(R.id.txtContraLogin);
 
         Button btnLogin = findViewById(R.id.btnLogin);
         TextView btnGoToRegister = findViewById(R.id.btnGoToRegistro);
@@ -30,9 +37,16 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
-                startActivity(goToHome);
-                finish();
+
+                if(validInputs()){
+
+                    //TODO:Implementar autentificación
+
+                    Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
+                    startActivity(goToHome);
+                    finish();
+                }
+
             }
         });
 
@@ -56,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
     private void closeApplication() {
         new AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_baseline_exit_to_app_24)
-                .setTitle("¿Realmente desea cerrar la aplicación?")
+                .setTitle("¿Desea cerrar la aplicación?")
                 .setCancelable(false)
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {// un listener que al pulsar, cierre la aplicacion
@@ -67,4 +81,19 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }).show();
     }
+
+    private boolean validInputs(){
+
+        if(this.email.getText().toString().isEmpty() || this.pass.getText().toString().isEmpty()){
+
+            Toast.makeText(getApplicationContext(), "Debe llenar todos los campos", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }else{
+            return true;
+        }
+
+    }
+
+
 }

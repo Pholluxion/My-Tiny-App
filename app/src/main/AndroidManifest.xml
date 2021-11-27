@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTinyApp">
         <activity
+            android:name=".AddToDoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ToDoActivity"
             android:exported="false" />
         <activity
