@@ -1,7 +1,5 @@
 package com.misiontic.mytinyapp;
 
-import android.widget.Toast;
-
 public class UnitTestExample {
 
     public UnitTestExample() {

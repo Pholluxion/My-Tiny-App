@@ -18,7 +18,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     private static final  String TABLA  = "todos";
     private static final  String COL_ID = "id";
-    private static final  String COL_TITULO = "descripcion";
+    private static final  String COL_TITULO = "titulo";
     private static final  String COL_DESCRIPCION = "descripcion";
     private static final  String COL_ESTADO = "estado";
 
@@ -34,10 +34,10 @@ public class DataBase extends SQLiteOpenHelper {
         String sql =
                 "CREATE TABLE " + TABLA +
                         " (" +
-                        COL_ID + " INTEGER PRIMARY KEY," +
+                        COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         COL_TITULO + " TEXT, "+
                         COL_DESCRIPCION + " TEXT, "+
-                        COL_ESTADO + " BOOLEAN DEFAULT(FALSE)" +
+                        COL_ESTADO + " INTEGER" +
                         ");";
 
         sqLiteDatabase.execSQL(sql);
@@ -50,7 +50,7 @@ public class DataBase extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void addProduct(String titulo,String desc, boolean estado){
+    public void addToDo(String titulo, String desc,int estado){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -59,6 +59,7 @@ public class DataBase extends SQLiteOpenHelper {
         cv.put(COL_ESTADO,estado);
 
         long res = db.insert(TABLA,null,cv);
+
         if (res == -1){
             Toast.makeText(context,"Error al registrar TODO",Toast.LENGTH_SHORT).show();
         }else{
