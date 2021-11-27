@@ -49,16 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             if(this.pass_1.getText().toString().equals(this.pass_2.getText().toString())){
 
-                if(this.pass_1.getText().toString().length() < 8){
-
-                    Toast.makeText(getApplicationContext(), "La contraseña debe tener una longitud minima de 8 carácteres", Toast.LENGTH_SHORT).show();
-                    return false;
-
-                }else {
-
-                    return true;
-
-                }
+                return validPassword(this.pass_1.getText().toString());
 
             }else{
 
@@ -68,6 +59,21 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+
+    public boolean validPassword(String pass){
+
+        if( pass.length() <= 8){
+
+            Toast.makeText(getApplicationContext(), "La contraseña debe tener una longitud minima de 8 carácteres", Toast.LENGTH_SHORT).show();
+            return false;
+
+        }else {
+
+            return true;
+
+        }
     }
 
 
