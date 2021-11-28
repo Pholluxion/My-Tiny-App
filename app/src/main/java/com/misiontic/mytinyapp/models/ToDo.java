@@ -5,12 +5,12 @@ public class ToDo {
     private int id;
     private String titulo;
     private String descripcion;
-    private boolean estado;
+    private int estado;
 
     public ToDo() {
     }
 
-    public ToDo(int id, String titulo, String descripcion, boolean estado) {
+    public ToDo(int id, String titulo, String descripcion, int estado) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -41,11 +41,11 @@ public class ToDo {
         this.descripcion = descripcion;
     }
 
-    public boolean isEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 

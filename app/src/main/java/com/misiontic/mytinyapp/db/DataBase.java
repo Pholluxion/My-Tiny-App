@@ -68,10 +68,12 @@ public class DataBase extends SQLiteOpenHelper {
 
     }
 
-    Cursor readProducts(){
+    public Cursor readToDo(){
 
         String sql = "SELECT * FROM "+TABLA;
+
         SQLiteDatabase db = this.getWritableDatabase();
+
         Cursor cursor = null;
 
         if (db!= null){
@@ -81,14 +83,14 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
 
-    void  deleteProduct(String id){
+    public void deleteToDo(String id){
         SQLiteDatabase db  =  this.getWritableDatabase();
 
-        long rst = db.delete(TABLA,"codigo=?",new String[]{id});
+        long rst = db.delete(TABLA,"id =?",new String[]{id});
         if (rst == -1){
-            Toast.makeText(context, "No se ha podido eliminar el producto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "No se ha podido eliminar el TODO", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Producto eiminado ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "TODO eiminado ", Toast.LENGTH_SHORT).show();
         }
     }
 
