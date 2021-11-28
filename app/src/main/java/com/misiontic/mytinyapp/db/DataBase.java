@@ -82,6 +82,23 @@ public class DataBase extends SQLiteOpenHelper {
         return  cursor;
     }
 
+    public void updateToDo(int id,int estado){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COL_ESTADO,estado);
+
+        long rta = db.update(TABLA,cv,"id = ?",new String[]{String.valueOf(id)});
+
+        if(rta == -1){
+            Toast.makeText(context, "No se pudo actualizar el estado", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Se actualizo el estado", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
 
     public void deleteToDo(String id){
         SQLiteDatabase db  =  this.getWritableDatabase();
