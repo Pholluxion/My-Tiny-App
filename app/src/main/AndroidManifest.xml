@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTinyApp">
         <activity
+            android:name=".PerfilActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddToDoActivity"
             android:exported="false" />
         <activity
@@ -17,8 +20,8 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />

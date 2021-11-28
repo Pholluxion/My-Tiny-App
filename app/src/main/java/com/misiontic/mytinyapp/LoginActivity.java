@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText email,pass;
     private FirebaseAuth auth;
-    FirebaseUser firebaseUser;
     private  Button btnLogin;
 
     @Override
@@ -54,12 +53,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseUser = auth.getCurrentUser();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
 
         if (firebaseUser!=null){
-            Toast.makeText(getApplicationContext(), firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+
             Toast.makeText(LoginActivity.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
             Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
+            goToHome.putExtra("id",firebaseUser.getUid());
+            System.out.println(firebaseUser.getUid());
             startActivity(goToHome);
             finish();
 
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Toast.makeText(LoginActivity.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
                     Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
+
                     startActivity(goToHome);
                     finish();
 

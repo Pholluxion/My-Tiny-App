@@ -14,20 +14,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.misiontic.mytinyapp.models.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Usuario user;
-    private TextView id;
+    private String id;
+    private ImageView goToPerfil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        if(getIntent().hasExtra("id")){
+            id =  getIntent().getStringExtra("id").toString();
+            Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
+        }
+
+        this.goToPerfil =  findViewById(R.id.btnPerfil);
+        this.goToPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToPerfil = new Intent(HomeActivity.this,PerfilActivity.class);
+                goToPerfil.putExtra("id",id);
+                startActivity(goToPerfil);
+            }
+        });
 
         ImageView goToToDo = findViewById(R.id.goToToDo);
         goToToDo.setOnClickListener(new View.OnClickListener() {

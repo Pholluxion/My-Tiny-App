@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "18306491003",
+    "project_id": "my-tiny-app",
+    "storage_bucket": "my-tiny-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18306491003:android:3caa4535de293e9daf78de",
+        "android_client_info": {
+          "package_name": "com.misiontic.mytinyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18306491003-nb0gu9lujg6bdh11ihefg0u4c83e4eee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.misiontic.mytinyapp",
+            "certificate_hash": "82ec019b659e24ba2b0c7f7894bd54dc8947d80b"
+          }
+        },
+        {
+          "client_id": "18306491003-797bgqpuervjullukcaomikh9au3dbfq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPJ8hoKsq99sEIP0-hmE7-NEUenhOJJPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18306491003-797bgqpuervjullukcaomikh9au3dbfq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

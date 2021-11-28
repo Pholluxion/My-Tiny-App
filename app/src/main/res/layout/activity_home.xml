@@ -87,10 +87,12 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/btnPerfil"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    app:srcCompat="@drawable/personalization" />
+                    android:clickable="true"
+                    app:srcCompat="@drawable/personalization"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
 
                 <TextView
