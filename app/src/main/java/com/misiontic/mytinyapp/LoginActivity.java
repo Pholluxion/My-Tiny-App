@@ -1,5 +1,6 @@
 package com.misiontic.mytinyapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -14,12 +15,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText email,pass;
+    private FirebaseAuth auth;
+    FirebaseUser firebaseUser;
+    private  Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.auth = FirebaseAuth.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -27,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         this.email = findViewById(R.id.txtEmailLogin);
         this.pass  = findViewById(R.id.txtContraLogin);
 
-        Button btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnLogin);
         TextView btnGoToRegister = findViewById(R.id.btnGoToRegistro);
         btnGoToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +47,26 @@ public class LoginActivity extends AppCompatActivity {
                 goToRegister();
             }
         });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser = auth.getCurrentUser();
+
+        if (firebaseUser!=null){
+            Toast.makeText(getApplicationContext(), firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
+            Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
+            startActivity(goToHome);
+            finish();
+
+
+        }
+
+        this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -43,15 +74,38 @@ public class LoginActivity extends AppCompatActivity {
 
                     //TODO:Implementar autentificación
 
-                    Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
-                    startActivity(goToHome);
-                    finish();
+                    signIn(email.getText().toString(),pass.getText().toString());
                 }
 
             }
         });
 
+
+
     }
+
+
+    private void signIn(String email, String pass){
+
+        this.auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+
+                    Toast.makeText(LoginActivity.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
+                    Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
+                    startActivity(goToHome);
+                    finish();
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "No se ha podido iniciar sesión", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+
 
     private void goToRegister() {
         Intent goToRegister = new Intent(LoginActivity.this,RegisterActivity.class);
@@ -91,7 +145,6 @@ public class LoginActivity extends AppCompatActivity {
             return false;
 
         }else{
-            Toast.makeText(LoginActivity.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
             return true;
         }
 

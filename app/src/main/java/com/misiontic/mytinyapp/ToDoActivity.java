@@ -40,6 +40,7 @@ public class ToDoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent goToAddToDo = new Intent(getApplicationContext(),AddToDoActivity.class);
                 startActivity(goToAddToDo);
+                finish();
             }
         });
 

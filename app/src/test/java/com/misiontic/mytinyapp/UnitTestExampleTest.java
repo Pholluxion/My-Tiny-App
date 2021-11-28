@@ -18,4 +18,9 @@ public class UnitTestExampleTest {
     public void validPassword() throws Exception{
         assertEquals(true,test.validPassword("123456789000"));
     }
+
+    @Test
+    public void validInput() throws Exception{
+        assertEquals(false,test.validInput("") );
+    }
 }

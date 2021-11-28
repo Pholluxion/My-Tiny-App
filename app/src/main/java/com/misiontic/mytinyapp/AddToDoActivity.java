@@ -2,7 +2,9 @@ package com.misiontic.mytinyapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,14 +35,28 @@ public class AddToDoActivity extends AppCompatActivity {
                 if(!(txtTitulo.getText().toString().isEmpty() || txtDesc.getText().toString().isEmpty())){
                     //TODO:Agregar tarea
                     db.addToDo(txtTitulo.getText().toString(),txtDesc.getText().toString(),0);
+                    Intent intent = new Intent(getApplicationContext(),ToDoActivity.class);
+                    startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "Debe llenar todo los campo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(getApplicationContext(),ToDoActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 

@@ -1,5 +1,6 @@
 package com.misiontic.mytinyapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -7,10 +8,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.misiontic.mytinyapp.models.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private Usuario user;
+    private TextView id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +38,32 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void cerrarSesion(){
+        FirebaseAuth.getInstance().signOut();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.btnLogOut){
+            cerrarSesion();
+            Intent goToHome = new Intent(HomeActivity.this,LoginActivity.class);
+            startActivity(goToHome);
+            finish();
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override
@@ -48,6 +85,7 @@ public class HomeActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {// un listener que al pulsar, cierre la aplicacion
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        cerrarSesion();
                         Intent goToLogin = new Intent(getApplicationContext(),LoginActivity.class);
                         startActivity(goToLogin);
                         finish();

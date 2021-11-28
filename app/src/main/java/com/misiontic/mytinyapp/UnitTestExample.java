@@ -18,4 +18,14 @@ public class UnitTestExample {
         }
     }
 
+    public boolean validInput(String input){
+
+        if(input.isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
 }

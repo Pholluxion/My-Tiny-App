@@ -1,5 +1,6 @@
 package com.misiontic.mytinyapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,12 +10,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText email,pass_1,pass_2;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.mAuth = FirebaseAuth.getInstance();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -28,15 +39,34 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(validInputs()){
                     Intent goToLogin = new Intent(getApplicationContext(),LoginActivity.class);
+
+                    createUser(email.getText().toString(),pass_1.getText().toString());
+
                     startActivity(goToLogin);
                     finish();
                     //TODO:Implementar el registro con FireBase
+
+                }
+            }
+        });
+    }
+
+    private void createUser(String email, String pass){
+
+        this.mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Registrado con exito!!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "No se pudo registrar", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
     }
+
 
     private boolean validInputs(){
 
