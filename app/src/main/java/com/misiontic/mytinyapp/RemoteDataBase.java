@@ -20,20 +20,25 @@ public class RemoteDataBase {
         this.usuario = usuario;
     }
 
-    public void setDatabase(){
+    public void setDatabase() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference(Usuario.class.getSimpleName()).child(usuario.getId().toString());
         reference.setValue(usuario);
 
+    }
+    public Usuario getDatabase(){
 
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference(Usuario.class.getSimpleName()).child(usuario.getId().toString());
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 usuario = dataSnapshot.getValue(Usuario.class);
-                //System.out.println(usuario.toString());
+                System.out.println(usuario.toString());
 
             }
 
@@ -43,7 +48,7 @@ public class RemoteDataBase {
 
             }
         });
-
+        return usuario;
     }
 
 
