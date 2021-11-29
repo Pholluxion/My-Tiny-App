@@ -93,8 +93,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
 
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+
                     Toast.makeText(LoginActivity.this, "¡Bienvenido!", Toast.LENGTH_SHORT).show();
                     Intent goToHome = new Intent(LoginActivity.this,HomeActivity.class);
+                    goToHome.putExtra("id",firebaseUser.getUid());
+                    System.out.println(firebaseUser.getUid());
 
                     startActivity(goToHome);
                     finish();

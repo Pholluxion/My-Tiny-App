@@ -32,6 +32,11 @@ public class PerfilActivity extends AppCompatActivity {
 
         usuario = new Usuario();
 
+        usuario.setNombre("name");
+        usuario.setApellido("lastname");
+        usuario.setEdad(0);
+        usuario.setCorreo("email");
+        usuario.setInsta("Instagram");
 
         this.nombre = findViewById(R.id.txtNombres);
         this.apellido = findViewById(R.id.txtApellidos);
@@ -41,10 +46,11 @@ public class PerfilActivity extends AppCompatActivity {
         this.btnGuardar = findViewById(R.id.btnGuardar);
 
         if(getIntent().hasExtra("id")){
-            id =  getIntent().getStringExtra("id").toString();
+            id =  getIntent().getStringExtra("id");
             Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
-
         }
+
+        System.out.println("ID - " + id);
 
         usuario.setId(id);
         getDatabase();
@@ -53,9 +59,19 @@ public class PerfilActivity extends AppCompatActivity {
 
     public void setDatabase() {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference(Usuario.class.getSimpleName()).child(this.usuario.getId().toString());
-        reference.setValue(this.usuario);
+
+        try {
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference reference = database.getReference(Usuario.class.getSimpleName()).child(this.usuario.getId());
+            reference.setValue(this.usuario);
+
+        }catch (Exception e){
+
+
+
+        }
+
 
     }
 
@@ -107,19 +123,22 @@ public class PerfilActivity extends AppCompatActivity {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference(Usuario.class.getSimpleName()).child(usuario.getId().toString());
+        DatabaseReference reference = database.getReference(Usuario.class.getSimpleName()).child(usuario.getId());
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                usuario = dataSnapshot.getValue(Usuario.class);
+                if(dataSnapshot.hasChildren()){
 
-                nombre.setHint(usuario.getNombre());
-                apellido.setHint(usuario.getApellido());
-                edad.setHint(String.valueOf(usuario.getEdad()));
-                correo.setHint(usuario.getCorreo());
-                insta.setHint(usuario.getInsta());
+                    usuario = dataSnapshot.getValue(Usuario.class);
+
+                    nombre.setHint(usuario.getNombre());
+                    apellido.setHint(usuario.getApellido());
+                    edad.setHint(String.valueOf(usuario.getEdad()));
+                    correo.setHint(usuario.getCorreo());
+                    insta.setHint(usuario.getInsta());
+                }
 
             }
 

@@ -17,12 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.misiontic.mytinyapp.models.Usuario;
 
 public class HomeActivity extends AppCompatActivity {
 
     private String id;
     private ImageView goToPerfil;
+    private Usuario usuario;
 
 
     @Override
@@ -31,8 +34,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         if(getIntent().hasExtra("id")){
-            id =  getIntent().getStringExtra("id").toString();
+            id = getIntent().getStringExtra("id");
+            this.usuario = new Usuario();
+            this.usuario.setId(id);
             Toast.makeText(getApplicationContext(), id, Toast.LENGTH_SHORT).show();
         }
 
@@ -109,5 +115,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }).show();
     }
+
+
 
 }
